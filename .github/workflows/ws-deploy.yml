@@ -1,0 +1,59 @@
+name: WS-deploy
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [ 18.18.0 ]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Setup keys
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/cashdynasty
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Pull git repo
+        run: |
+          cd /var/www/next
+          git checkout master
+          git fetch
+          git pull origin master
+          git status
+      - name: Setup .env
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+      - name: Install packages
+        run: |
+          npm i
+      - name: Generate prisma models
+        run: |
+          npx prisma generate
+      - name: Build environment
+        run: |
+          npm run build
+      - name: Restart server
+        run: |
+          pm2 stop all
+          pm2 start all
