@@ -18,17 +18,17 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-  console.log('a user connected')
+  console.log('a user connected', socket.client.id)
 
   socket.on('chat', async (msg) => {
     console.log('message: ' + msg)
     io.emit('chat', msg)
-    await axios.post('http://localhost:3000/api/chat', { message: msg }).then((res) => {
+    await axios.post('https://cashdynasty.pl/api/chat', { message: msg }).then((res) => {
       console.log(res.data)
     })
   })
 })
 
 server.listen(3001, () => {
-  console.log('server running at http://localhost:3001')
+  console.log('server running at https://localhost:3001')
 })
