@@ -9,7 +9,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://cashdynasty.pl",
+    origin: "*",
   },
 });
 
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected", socket.client.id);
+  console.log("a user connected", socket.client);
 
   socket.on("chat", async (props) => {
     console.log("message: " + JSON.stringify(props));
@@ -36,5 +36,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3001, () => {
-  console.log("server running at https://localhost:3001");
+  console.log(`server running at port 3001}`);
 });
