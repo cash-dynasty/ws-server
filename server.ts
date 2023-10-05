@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
     console.log("message: " + JSON.stringify(props));
 
     await axios
-      .post("http://localhost:3000/api/chat", {
+      .post("https://cashdynasty.pl/api/chat", {
         message: props.message,
         userId: props.userId,
         conversation: props.conversation,
