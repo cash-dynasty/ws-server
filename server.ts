@@ -35,27 +35,26 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
     cors: {
-        origin: ['https://cashdynasty.pl', 'http://localhost:3000'],
+        origin: '*',
         methods: ["GET", "POST"],
-        credentials: false,
     },
 });
 
 io.on("connection", (socket) => {
     console.log("a user connected", socket.client.id);
+    socket.on("chat", async (props) => {
+        console.log("message: " + JSON.stringify(props));
+
+        // await axios
+        //     .post("https://cashdynasty.pl/api/chat", {
+        //       message: props.message,
+        //       userId: props.userId,
+        //       conversation: props.conversation,
+        //     })
+        //     .then((res) => {
+        io.emit("chat", props.message);
+        // });
+    });
 });
 
 //
-//     socket.on("chat", async (props) => {
-//         console.log("message: " + JSON.stringify(props));
-//
-//         // await axios
-//         //     .post("https://cashdynasty.pl/api/chat", {
-//         //       message: props.message,
-//         //       userId: props.userId,
-//         //       conversation: props.conversation,
-//         //     })
-//         //     .then((res) => {
-//         io.emit("chat", props.message);
-//         // });
-//     });
