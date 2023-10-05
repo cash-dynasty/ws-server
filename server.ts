@@ -7,7 +7,10 @@ const app = express();
 // const origin = "https://cashdynasty.pl"
 // const origin = "*"
 
-app.use(cors())
+app.use(cors({
+    origin: '*',
+    methods: ["GET", "POST"],
+}))
 app.use(express.json())
 
 
