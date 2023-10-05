@@ -34,23 +34,18 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Stop server
+        run: |
+          pm2 stop ws
       - name: Pull git repo
         run: |
-          cd /var/www/ws-server
           git checkout master
           git fetch
           git pull origin master
           git status
-      #- name: Setup .env
-      #  run: |
-      #    echo "${{ secrets.ENV_FILE }}" > .env
       - name: Install packages
         run: |
           npm i
-      - name: Build environment
+      - name: Start server
         run: |
-          npm start
-      - name: Restart server
-        run: |
-          pm2 stop all
-          pm2 start all
+          pm2 start ws
