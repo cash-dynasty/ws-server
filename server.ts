@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected", socket.client.id );
+  console.log("a user connected", socket.client.id, 'elo' );
 
   socket.on("chat", async (props) => {
     console.log("message: " + JSON.stringify(props));
