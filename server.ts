@@ -23,7 +23,7 @@ const server = app.listen(3001, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: "https://cashdynasty.pl",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
