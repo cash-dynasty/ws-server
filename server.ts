@@ -16,21 +16,6 @@ app.use(cors({
 }))
 app.use(express.json())
 
-
-app.get("/", (req, res) => {
-    res.send("<h1>Hello world</h1>");
-});
-
-app.post("/test", (req, res) => {
-    res.send({message: "test"});
-});
-
-
-app.listen(3001, () => {
-    console.log(`server running at port 3001`);
-});
-
-
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
@@ -56,5 +41,21 @@ io.on("connection", (socket) => {
     //     // });
     // });
 });
+
+app.get("/", (req, res) => {
+    res.send("<h1>Hello world</h1>");
+});
+
+app.post("/test", (req, res) => {
+    res.send({message: "test"});
+});
+
+
+app.listen(3001, () => {
+    console.log(`server running at port 3001`);
+});
+
+
+
 
 //
