@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import express from "express";
-// import cors from "cors";
+import cors from "cors";
 import {Server} from "socket.io";
 import {createServer} from "http";
 
