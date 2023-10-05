@@ -25,7 +25,6 @@ const io = new Server(serwerek, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
-    credentials: true
   },
 });
 
