@@ -8,7 +8,7 @@ import {createServer} from "http";
 const app = express();
 
 // const origin = "https://cashdynasty.pl"
-const origin = "*"
+// const origin = "*"
 
 // app.use(cors())
 // app.use(express.json())
@@ -24,17 +24,17 @@ app.listen(3001, () => {
 });
 
 
-// const httpServer = createServer(app);
-//
-// const io = new Server(httpServer, {
-//     cors: {
-//         origin: ['https://cashdynasty.pl', 'http://localhost:3000'],
-//         methods: ["GET", "POST"],
-//     },
-// });
-//
-// io.on("connection", (socket) => {
-//     console.log("a user connected", socket.client.id);
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+    cors: {
+        origin: ['https://cashdynasty.pl', 'http://localhost:3000'],
+        methods: ["GET", "POST"],
+    },
+});
+
+io.on("connection", (socket) => {
+    console.log("a user connected", socket.client.id);
 //
 //     socket.on("chat", async (props) => {
 //         console.log("message: " + JSON.stringify(props));
@@ -49,4 +49,4 @@ app.listen(3001, () => {
 //         io.emit("chat", props.message);
 //         // });
 //     });
-// });
+});
