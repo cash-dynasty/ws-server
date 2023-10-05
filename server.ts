@@ -3,6 +3,7 @@
 import express from "express";
 import {Server} from "socket.io";
 import cors from 'cors'
+import {createServer} from "http";
 
 const app = express();
 
@@ -23,7 +24,9 @@ app.listen(3001, () => {
 });
 
 
-const io = new Server(serwerek, {
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
     cors: {
         origin: ['https://cashdynasty.pl', 'http://localhost:3000'],
         methods: ["GET", "POST"],
