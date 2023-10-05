@@ -13,12 +13,12 @@ const io = new Server(server, {
   },
 });
 
-app.get("/", (req, res) => {
-  res.send("<h1>Hello world</h1>");
-});
+// app.get("/", (req, res) => {
+//   res.send("<h1>Hello world</h1>");
+// });
 
 io.on("connection", (socket) => {
-  console.log("a user connected", socket.client);
+  console.log("a user connected", socket.client.id );
 
   socket.on("chat", async (props) => {
     console.log("message: " + JSON.stringify(props));
@@ -36,5 +36,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3001, () => {
-  console.log(`server running at port 3001}`);
+  console.log(`server running at port 3001`);
 });
