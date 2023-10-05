@@ -2,6 +2,8 @@
 // @ts-nocheck
 import express from "express";
 import cors from "cors";
+import {Server} from "socket.io";
+import {createServer} from "http";
 
 const app = express();
 
@@ -29,19 +31,20 @@ app.listen(3001, () => {
 });
 
 
-// const httpServer = createServer(app);
-//
-// const io = new Server(httpServer, {
-//     cors: {
-//         origin: ['https://cashdynasty.pl', 'http://localhost:3000'],
-//         methods: ["GET", "POST"],
-//         credentials: false,
-//     },
-// });
-//
-// io.on("connection", (socket) => {
-//     console.log("a user connected", socket.client.id);
-// });
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+    cors: {
+        origin: ['https://cashdynasty.pl', 'http://localhost:3000'],
+        methods: ["GET", "POST"],
+        credentials: false,
+    },
+});
+
+io.on("connection", (socket) => {
+    console.log("a user connected", socket.client.id);
+});
+
 //
 //     socket.on("chat", async (props) => {
 //         console.log("message: " + JSON.stringify(props));
