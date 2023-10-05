@@ -30,6 +30,7 @@ const io = new Server(httpServer, {
     cors: {
         origin: ['https://cashdynasty.pl', 'http://localhost:3000'],
         methods: ["GET", "POST"],
+        credentials: false,
     },
 });
 
