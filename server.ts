@@ -4,7 +4,7 @@ import express from "express";
 import axios from "axios";
 import cors from "cors";
 import {Server} from "socket.io";
-import {createServer} from "http";
+import {createServer} from "node:http";
 
 const app = express();
 
