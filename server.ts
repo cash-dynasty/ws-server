@@ -7,7 +7,10 @@ import cors from 'cors'
 
 const app = express();
 
-app.use(cors())
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST']
+}))
 app.use(express.json())
 
 
@@ -24,6 +27,7 @@ const serwerek = app.listen(3001, () => {
 const io = new Server(serwerek, {
   cors: {
     origin: "*",
+    methods: ["GET", "POST"],
   },
 });
 
