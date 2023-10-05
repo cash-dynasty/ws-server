@@ -16,32 +16,31 @@ app.get("/", (req, res) => {
 });
 
 
-const serwerek = app.listen(3001, () => {
+app.listen(3001, () => {
     console.log(`server running at port 3001`);
 });
 
 
-const io = new Server(serwerek, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
+const io = new Server(app, {
+    cors: {
+        origin: "*",
+    },
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected", socket.client.id);
+    console.log("a user connected", socket.client.id);
 
-  socket.on("chat", async (props) => {
-    console.log("message: " + JSON.stringify(props));
+    socket.on("chat", async (props) => {
+        console.log("message: " + JSON.stringify(props));
 
-    await axios
-        .post("https://cashdynasty.pl/api/chat", {
-          message: props.message,
-          userId: props.userId,
-          conversation: props.conversation,
-        })
-        .then((res) => {
-          io.emit("chat", props.message);
-        });
-  });
+        await axios
+            .post("https://cashdynasty.pl/api/chat", {
+                message: props.message,
+                userId: props.userId,
+                conversation: props.conversation,
+            })
+            .then((res) => {
+                io.emit("chat", props.message);
+            });
+    });
 });
