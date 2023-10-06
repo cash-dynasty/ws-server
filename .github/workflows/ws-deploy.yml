@@ -46,6 +46,9 @@ jobs:
       - name: Install packages
         run: |
           npm i
+      - name: Build server
+        run: |
+          npm run build
       - name: Start server
         run: |
           pm2 start ws
