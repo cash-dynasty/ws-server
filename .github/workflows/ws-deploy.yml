@@ -43,6 +43,9 @@ jobs:
           git fetch
           git pull origin master
           git status
+      - name: Setup .env
+        run: |
+          echo "${{ vars.BE_BASE_URL }}" > .env
       - name: Install packages
         run: |
           npm i
