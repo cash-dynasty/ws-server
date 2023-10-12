@@ -46,6 +46,7 @@ jobs:
       - name: Setup .env
         run: |
           echo "${{ vars.BE_BASE_URL }}" > .env
+          echo "${{ secrets.WS_AUTH_TOKEN }}" >> .env
       - name: Install packages
         run: |
           npm i
